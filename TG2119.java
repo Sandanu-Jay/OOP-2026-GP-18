@@ -15,7 +15,7 @@ public class Main extends JFrame {
     private JLabel categoryLabel;
 
     public Main() {
-        setTitle("BMI Calculator - ICT2132");
+        setTitle("BMI Calculator");
         setSize(450, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
