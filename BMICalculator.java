@@ -3,130 +3,179 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Ruhuna Faculty of Technology - ICT2132 Practical 12
- * Simple BMI Calculator using OOP Concepts
- */
 public class BMICalculator extends JFrame {
 
-    // Global variables for components
-    private JRadioButton metricBtn, englishBtn;
-    private JRadioButton maleBtn, femaleBtn;
-    private JTextField heightField, weightField;
+    private JRadioButton metricRadio;
+    private JRadioButton englishRadio;
+    private JTextField weightField;
+    private JTextField heightField;
+    private JLabel weightLabel;
+    private JLabel heightLabel;
     private JLabel resultLabel;
+    private JLabel categoryLabel;
 
-    // Constructor - UI එක නිර්මාණය කිරීම මෙහි සිදු වේ
     public BMICalculator() {
-        // Window එකෙහි මූලික සැකසුම්
-        setTitle("BMI Calculator");
-        setSize(350, 450);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Screen එක මැදට ගැනීමට
-        setLayout(new GridLayout(7, 1, 10, 10)); // සරලව Grid එකක් ලෙස Layout එක සකසා ඇත
+        setTitle("BMI Calculator - ICT2132");
+        setSize(450, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout(10, 10));
 
-        // 1. Header Section
-        JLabel titleLabel = new JLabel("BMI CALCULATOR", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        add(titleLabel);
+        // --- Header Panel ---
+        JPanel headerPanel = new JPanel();
+        headerPanel.setBackground(new Color(230, 242, 255));
+        JLabel headerLabel = new JLabel("Body Mass Index (BMI) Calculator", JLabel.CENTER);
+        headerLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        headerPanel.add(headerLabel);
+        add(headerPanel, BorderLayout.NORTH);
 
-        // 2. Unit Selection Section (Metric vs English)
-        JPanel unitPanel = new JPanel();
-        metricBtn = new JRadioButton("Metric (kg/m)", true); // Default true
-        englishBtn = new JRadioButton("English (lb/in)");
-        ButtonGroup unitGroup = new ButtonGroup(); // එකක් තෝරන විට අනෙක අක්රිය වීමට
-        unitGroup.add(metricBtn);
-        unitGroup.add(englishBtn);
-        unitPanel.add(metricBtn);
-        unitPanel.add(englishBtn);
-        add(unitPanel);
+        // --- Main Input Panel ---
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
-        // 3. Gender Selection Section
-        JPanel genderPanel = new JPanel();
-        maleBtn = new JRadioButton("Male", true);
-        femaleBtn = new JRadioButton("Female");
-        ButtonGroup genderGroup = new ButtonGroup();
-        genderGroup.add(maleBtn);
-        genderGroup.add(femaleBtn);
-        genderPanel.add(maleBtn);
-        genderPanel.add(femaleBtn);
-        add(genderPanel);
+        // Unit Selection
+        JPanel unitPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        unitPanel.setBorder(BorderFactory.createTitledBorder("Select Unit System"));
+        metricRadio = new JRadioButton("Metric (kg, meters)", true);
+        englishRadio = new JRadioButton("English (pounds, inches)");
+        ButtonGroup unitGroup = new ButtonGroup();
+        unitGroup.add(metricRadio);
+        unitGroup.add(englishRadio);
+        unitPanel.add(metricRadio);
+        unitPanel.add(englishRadio);
+        mainPanel.add(unitPanel);
+        mainPanel.add(Box.createVerticalStrut(10));
 
-        // 4. Height Input Section
-        JPanel heightPanel = new JPanel();
-        heightPanel.add(new JLabel("Height: "));
-        heightField = new JTextField(10);
-        heightPanel.add(heightField);
-        add(heightPanel);
+        // Inputs Panel
+        JPanel inputGrid = new JPanel(new GridLayout(2, 2, 10, 10));
+        weightLabel = new JLabel("Weight (Kilograms):");
+        weightField = new JTextField();
+        heightLabel = new JLabel("Height (Meters):");
+        heightField = new JTextField();
+        inputGrid.add(weightLabel);
+        inputGrid.add(weightField);
+        inputGrid.add(heightLabel);
+        inputGrid.add(heightField);
+        mainPanel.add(inputGrid);
+        mainPanel.add(Box.createVerticalStrut(15));
 
-        // 5. Weight Input Section
-        JPanel weightPanel = new JPanel();
-        weightPanel.add(new JLabel("Weight: "));
-        weightField = new JTextField(10);
-        weightPanel.add(weightField);
-        add(weightPanel);
+        // Calculate Button
+        JButton calculateButton = new JButton("Calculate BMI");
+        calculateButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        calculateButton.setFont(new Font("Arial", Font.BOLD, 14));
+        mainPanel.add(calculateButton);
+        mainPanel.add(Box.createVerticalStrut(15));
 
-        // 6. Calculate Button Section
-        JButton calcBtn = new JButton("CALCULATE");
-        add(calcBtn);
+        // Results Panel
+        JPanel resultPanel = new JPanel(new GridLayout(2, 1, 5, 5));
+        resultPanel.setBorder(BorderFactory.createTitledBorder("Your Result"));
+        resultLabel = new JLabel("BMI: --", JLabel.CENTER);
+        resultLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        categoryLabel = new JLabel("Category: --", JLabel.CENTER);
+        categoryLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        resultPanel.add(resultLabel);
+        resultPanel.add(categoryLabel);
+        mainPanel.add(resultPanel);
 
-        // 7. Result Display Section
-        resultLabel = new JLabel("Your BMI will appear here", SwingConstants.CENTER);
-        resultLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        add(resultLabel);
+        add(mainPanel, BorderLayout.CENTER);
 
-        // Event Listener - Calculate බොත්තම එබූ විට සිදුවන දේ
-        calcBtn.addActionListener(new ActionListener() {
+        // --- Reference Info Panel (Bottom) ---
+        JPanel infoPanel = new JPanel();
+        infoPanel.setBorder(BorderFactory.createTitledBorder("BMI Reference Values"));
+        JTextArea infoText = new JTextArea(
+                "Underweight:\tless than 18.5\n" +
+                        "Normal:\t\tbetween 18.5 and 24.9\n" +
+                        "Overweight:\tbetween 25 and 29.9\n" +
+                        "Obese:\t\t30 or greater"
+        );
+        infoText.setEditable(false);
+        infoText.setBackground(infoPanel.getBackground());
+        infoText.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        infoPanel.add(infoText);
+        add(infoPanel, BorderLayout.SOUTH);
+
+        // --- Event Listeners ---
+        ActionListener unitListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                calculateBMI(); // BMI ගණනය කරන Method එක Call කිරීම
+                if (metricRadio.isSelected()) {
+                    weightLabel.setText("Weight (Kilograms):");
+                    heightLabel.setText("Height (Meters):");
+                } else {
+                    weightLabel.setText("Weight (Pounds):");
+                    heightLabel.setText("Height (Inches):");
+                }
+                clearResults();
+            }
+        };
+
+        metricRadio.addActionListener(unitListener);
+        englishRadio.addActionListener(unitListener);
+
+        calculateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                calculateBMI();
             }
         });
     }
 
-    // BMI Logic එක සහ ඛණ්ඩනය කිරීම් (Calculation Logic)
+    private void clearResults() {
+        resultLabel.setText("BMI: --");
+        categoryLabel.setText("Category: --");
+        categoryLabel.setForeground(Color.BLACK);
+    }
+
     private void calculateBMI() {
         try {
-            // Text fields වලින් අගයන් ලබාගෙන Double වලට හරවා ගැනීම
-            double height = Double.parseDouble(heightField.getText());
-            double weight = Double.parseDouble(weightField.getText());
+            double weight = Double.parseDouble(weightField.getText().trim());
+            double height = Double.parseDouble(heightField.getText().trim());
+
+            if (weight <= 0 || height <= 0) {
+                JOptionPane.showMessageDialog(this, "Please enter positive values greater than zero.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             double bmi = 0;
 
-            // 1. පැවරුමේ ඇති Formulas වලට අනුව ගණනය කිරීම
-            if (metricBtn.isSelected()) {
-                // Metric formula: weight (kg) / [height (m) * height (m)]
-                // පරිශීලකයා සෙන්ටිමීටර වලින් දැමුවහොත් එය මීටර් කිරීමට 100න් බෙදයි
-                if (height > 3) height = height / 100;
+            if (metricRadio.isSelected()) {
                 bmi = weight / (height * height);
             } else {
-                // English formula: (weight (lb) * 703) / [height (in) * height (in)]
                 bmi = (weight * 703) / (height * height);
             }
 
-            // දශමස්ථාන 1කට වටයන්න
-            bmi = Math.round(bmi * 10.0) / 10.0;
-
-            // 2. DHHS / NIH BMI සීමාවන්ට අනුව Category එක සෙවීම
-            String category;
-            if (bmi < 18.5) {
-                category = "Underweight";
-            } else if (bmi >= 18.5 && bmi <= 24.9) {
-                category = "Normal";
-            } else if (bmi >= 25 && bmi <= 29.9) {
-                category = "Overweight";
-            } else {
-                category = "Obese";
-            }
-
-            // ප්‍රතිඵලය Screen එකේ පෙන්වීම
-            resultLabel.setText("BMI: " + bmi + " (" + category + ")");
+            displayResult(bmi);
 
         } catch (NumberFormatException ex) {
-            // අකුරු හෝ හිස් තැන් ඇතුළත් කළහොත් පෙන්වන Error එක
-            resultLabel.setText("Please enter valid numbers!");
+            JOptionPane.showMessageDialog(this, "Please enter valid numerical values for weight and height.", "Input Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    // Main Method එක - Program එක Run වන ස්ථානය
+    private void displayResult(double bmi) {
+        resultLabel.setText(String.format("BMI: %.2f", bmi));
+
+        String category;
+        Color color;
+
+        if (bmi < 18.5) {
+            category = "Underweight";
+            color = new Color(70, 130, 180);
+        } else if (bmi >= 18.5 && bmi <= 24.9) {
+            category = "Normal";
+            color = new Color(46, 139, 87);
+        } else if (bmi >= 25 && bmi <= 29.9) {
+            category = "Overweight";
+            color = new Color(218, 165, 32);
+        } else {
+            category = "Obese";
+            color = new Color(178, 34, 34);
+        }
+
+        categoryLabel.setText("Category: " + category);
+        categoryLabel.setForeground(color);
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
