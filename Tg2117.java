@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// File name එක Main.j
 public class Main extends JFrame {
 
     private JRadioButton metricRadio;
