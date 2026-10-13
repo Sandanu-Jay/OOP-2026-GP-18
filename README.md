@@ -93,13 +93,6 @@ Developed by a group of Level II, Semester I students as part of the ICT2132 –
 **Faculty:** Faculty of Technology  
 **Department:** Department of Information and Communication Technology
 
-## 📅 Project Timeline
-
-- SRS Submission: 13 September 2026
-- UML Class Diagram and ER Diagram: 20 September 2026
-- Final Project Submission: 1 November 2026
-- Project Evaluation: 5 November 2026
-
 ## 📄 License
 
 This project was developed for academic purposes.
