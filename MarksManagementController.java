@@ -1,4 +1,4 @@
-package com.faculty.management.controller;
+;package com.faculty.management.controller;
 
 import com.faculty.management.dao.CourseDAO;
 import com.faculty.management.dao.MarksDAO;
