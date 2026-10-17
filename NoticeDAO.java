@@ -43,6 +43,7 @@ public class NoticeDAO implements INoticeDAO {
         }
         return list;
     }
+    
 
     public List<Notice> getNoticesForAudience(String role) {
         List<Notice> list = new ArrayList<>();
