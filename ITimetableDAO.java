@@ -7,6 +7,7 @@ import java.util.List;
  * OOP CONCEPT: ABSTRACTION & INTERFACE DESIGN
  * Data Access Object Interface for Timetables and Room Allocations.
  */
+
 public interface ITimetableDAO {
 
     List<Timetable> getAllTimetables();
