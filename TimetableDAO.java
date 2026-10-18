@@ -11,6 +11,7 @@ import java.util.List;
  * OOP CONCEPT: DATABASE HANDLING & EXCEPTION HANDLING
  * Data Access Object (DAO) for managing Timetables and Room Allocations.
  */
+
 public class TimetableDAO implements ITimetableDAO {
 
     public List<Timetable> getAllTimetables() {
