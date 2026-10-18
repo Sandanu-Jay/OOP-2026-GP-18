@@ -11,6 +11,7 @@ import java.util.List;
  * OOP CONCEPT: DATABASE HANDLING & EXCEPTION HANDLING
  * Data Access Object (DAO) for Undergraduate Medical records.
  */
+
 public class MedicalDAO implements IMedicalDAO {
 
     public List<MedicalRecord> getAllMedicalRecords() {
