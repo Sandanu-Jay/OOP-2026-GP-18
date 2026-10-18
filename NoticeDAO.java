@@ -11,6 +11,7 @@ import java.util.List;
  * OOP CONCEPT: DATABASE HANDLING & EXCEPTION HANDLING
  * Data Access Object (DAO) for managing Faculty Notices and Announcements.
  */
+
 public class NoticeDAO implements INoticeDAO {
 
     public List<Notice> getAllNotices() {
