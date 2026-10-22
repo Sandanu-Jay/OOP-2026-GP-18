@@ -4,6 +4,7 @@ import com.faculty.management.model.Course;
 import com.faculty.management.model.CourseMaterial;
 import java.util.List;
 
+
 /**
  * OOP CONCEPT: ABSTRACTION & INTERFACE DESIGN
  * Data Access Object Interface for Academic Courses and Materials.
