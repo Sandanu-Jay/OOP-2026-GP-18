@@ -5,6 +5,7 @@ import com.faculty.management.model.AttendanceSummary;
 import java.sql.Date;
 import java.util.List;
 
+
 /**
  * OOP CONCEPT: ABSTRACTION & INTERFACE DESIGN
  * Data Access Object Interface for Attendance and 80% Threshold Compliance.
