@@ -3,6 +3,7 @@ package com.faculty.management.dao;
 import com.faculty.management.model.MedicalRecord;
 import java.util.List;
 
+
 /**
  * OOP CONCEPT: ABSTRACTION & INTERFACE DESIGN
  * Data Access Object Interface for Student Medical Certificates.
