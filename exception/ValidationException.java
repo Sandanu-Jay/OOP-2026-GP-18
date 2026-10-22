@@ -1,5 +1,6 @@
 package com.faculty.management.exception;
 
+
 /**
  * OOP CONCEPT: EXCEPTION HANDLING
  * Custom exception for input validation failures.
