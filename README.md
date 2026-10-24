@@ -18,6 +18,6 @@ The Undergraduate Management Module is a part of the University Management Syste
 
 - Java
 - MySQL / MariaDB
-- JDB
+- JDBC
 - JavaFX 
 
