@@ -11,7 +11,6 @@ import java.time.LocalTime;
 import java.util.List;
 
 /**
- * Modern Swing Admin Dashboard View.
  * Connects directly to DAO Interfaces (IStudentDAO, ILecturerDAO, etc.).
  */
 public class AdminDashboardView extends JPanel {
