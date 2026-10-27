@@ -15,7 +15,7 @@ public class Admin extends User {
         super(userId, username, passwordHash, fullName, email, phone, "ADMIN", profileImage);
     }
 
-    // OOP CONCEPT: POLYMORPHISM (Method Overriding)
+    
     @Override
     public String getRoleDisplayName() {
         return "Administrator";
