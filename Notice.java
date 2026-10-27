@@ -3,7 +3,6 @@ package com.faculty.management.model;
 import java.time.LocalDateTime;
 
 /**
- * OOP CONCEPT: ENCAPSULATION
  * Represents an announcement or official notice published within the faculty.
  */
 public class Notice {
