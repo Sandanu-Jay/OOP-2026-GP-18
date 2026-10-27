@@ -20,7 +20,7 @@ public class Lecturer extends User {
         this.designation = designation;
     }
 
-    // OOP CONCEPT: POLYMORPHISM (Method Overriding)
+ 
     @Override
     public String getRoleDisplayName() {
         return "Lecturer (" + (designation != null ? designation : "Academic Staff") + ")";
