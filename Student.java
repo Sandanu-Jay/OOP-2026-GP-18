@@ -8,7 +8,7 @@ public class Student extends User {
     private String regNo;
     private String department;
     private String batch;
-    private String studentStatus; // 'NORMAL', 'REPEAT', 'BATCH_MISSED'
+    private String studentStatus; 
 
     public Student() {
         super();
