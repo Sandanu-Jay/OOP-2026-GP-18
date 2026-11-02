@@ -2,10 +2,7 @@ package com.faculty.management.model;
 
 import java.time.LocalDate;
 
-/**
- * OOP CONCEPT: ENCAPSULATION
- * Represents an individual attendance record for a theory or practical session.
- */
+
 public class Attendance {
     private int attendanceId;
     private int studentId;
