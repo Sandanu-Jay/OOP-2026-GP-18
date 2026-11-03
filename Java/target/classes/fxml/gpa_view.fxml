@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" styleClass="content-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.faculty.management.controller.GpaViewController">
+
+    <!-- Top GPA Metric Cards -->
+    <HBox spacing="16">
+        <VBox styleClass="card" spacing="8" HBox.hgrow="ALWAYS">
+            <Label text="Cumulative GPA (CGPA)" styleClass="metric-title" />
+            <Label fx:id="lblCgpa" text="0.00" styleClass="metric-value" style="-fx-text-fill: #2563EB;" />
+            <Label text="Grading scale: UGC Circular No. 12-2024 (Max 4.00)" style="-fx-font-size: 11px; -fx-text-fill: #64748B;" />
+        </VBox>
+
+        <VBox styleClass="card" spacing="8" HBox.hgrow="ALWAYS">
+            <Label text="Total Completed Credits" styleClass="metric-title" />
+            <Label fx:id="lblTotalCredits" text="0" styleClass="metric-value" style="-fx-text-fill: #059669;" />
+            <Label text="Accumulated academic module credits" style="-fx-font-size: 11px; -fx-text-fill: #64748B;" />
+        </VBox>
+
+        <VBox styleClass="card" spacing="8" HBox.hgrow="ALWAYS">
+            <Label text="Total Grade Points" styleClass="metric-title" />
+            <Label fx:id="lblEarnedPoints" text="0.00" styleClass="metric-value" style="-fx-text-fill: #7C3AED;" />
+            <Label text="Sum of (Credit × Grade Point Value)" style="-fx-font-size: 11px; -fx-text-fill: #64748B;" />
+        </VBox>
+    </HBox>
+
+    <!-- Course Grades Table -->
+    <VBox spacing="10" styleClass="card" VBox.vgrow="ALWAYS">
+        <Label text="Course Grade Breakdown (UGC Circular 12-2024)" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #0F172A;" />
+        <TableView fx:id="tblCourseGrades" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colCode" text="Course Code" prefWidth="110" />
+                <TableColumn fx:id="colName" text="Course Title" prefWidth="280" />
+                <TableColumn fx:id="colCredits" text="Credits" prefWidth="75" />
+                <TableColumn fx:id="colTotalMarks" text="Total Mark" prefWidth="95" />
+                <TableColumn fx:id="colGrade" text="Grade" prefWidth="80" />
+                <TableColumn fx:id="colGpv" text="GPV" prefWidth="75" />
+                <TableColumn fx:id="colPoints" text="Quality Points" prefWidth="110" />
+                <TableColumn fx:id="colDesc" text="Description" prefWidth="150" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </VBox>
+
+</VBox>
