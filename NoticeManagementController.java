@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * Controller for Faculty Notices and Announcements.
@@ -32,6 +33,8 @@ public class NoticeManagementController {
     @FXML private TableColumn<Notice, String> colTarget;
     @FXML private TableColumn<Notice, String> colAuthor;
     @FXML private TableColumn<Notice, LocalDateTime> colDate;
+    @FXML private TableColumn<Notice, LocalDate> colFromDate;
+    @FXML private TableColumn<Notice, LocalDate> colToDate;
     @FXML private TableColumn<Notice, Boolean> colPinned;
 
     @FXML private Label lblNoticeTitle;
@@ -53,6 +56,8 @@ public class NoticeManagementController {
         colTarget.setCellValueFactory(new PropertyValueFactory<>("targetAudience"));
         colAuthor.setCellValueFactory(new PropertyValueFactory<>("postedByName"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("postedDate"));
+        colFromDate.setCellValueFactory(new PropertyValueFactory<>("fromDate"));
+        colToDate.setCellValueFactory(new PropertyValueFactory<>("toDate"));
         colPinned.setCellValueFactory(new PropertyValueFactory<>("pinned"));
 
         User user = SessionManager.getCurrentUser();
@@ -64,7 +69,7 @@ public class NoticeManagementController {
         tblNotices.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
             if (newSel != null) {
                 lblNoticeTitle.setText(newSel.getTitle());
-                lblNoticeMeta.setText("Target: " + newSel.getTargetAudience() + " | Posted by: " + newSel.getPostedByName() + " on " + newSel.getPostedDate().toLocalDate());
+                lblNoticeMeta.setText("Target: " + newSel.getTargetAudience() + " | Posted by: " + newSel.getPostedByName() + " on " + newSel.getPostedDate().toLocalDate() + " | From: " + newSel.getFromDate() + " | To: " + (newSel.getToDate() == null ? "No expiry" : newSel.getToDate()));
                 txtNoticeContent.setText(newSel.getContent());
             } else {
                 lblNoticeTitle.setText("Select a notice");
@@ -117,6 +122,11 @@ public class NoticeManagementController {
         contentArea.setPromptText("Enter full announcement text here...");
         contentArea.setPrefRowCount(6);
 
+        DatePicker fromDatePicker = new DatePicker(LocalDate.now());
+        fromDatePicker.setPromptText("Required start date");
+        DatePicker toDatePicker = new DatePicker();
+        toDatePicker.setPromptText("Optional end date (leave empty for no expiry)");
+
         CheckBox pinCheck = new CheckBox("Pin Notice to Top of Portal");
 
         grid.add(new Label("Title:"), 0, 0);
@@ -125,7 +135,11 @@ public class NoticeManagementController {
         grid.add(audienceCombo, 1, 1);
         grid.add(new Label("Content:"), 0, 2);
         grid.add(contentArea, 1, 2);
-        grid.add(pinCheck, 1, 3);
+        grid.add(new Label("From Date:"), 0, 3);
+        grid.add(fromDatePicker, 1, 3);
+        grid.add(new Label("To Date (Optional):"), 0, 4);
+        grid.add(toDatePicker, 1, 4);
+        grid.add(pinCheck, 1, 5);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -136,12 +150,25 @@ public class NoticeManagementController {
                     return null;
                 }
 
+                LocalDate fromDate = fromDatePicker.getValue();
+                LocalDate toDate = toDatePicker.getValue();
+                if (fromDate == null) {
+                    AlertUtil.showWarning("Validation Error", "Please select a From Date.");
+                    return null;
+                }
+                if (toDate != null && toDate.isBefore(fromDate)) {
+                    AlertUtil.showWarning("Validation Error", "To Date cannot be before From Date.");
+                    return null;
+                }
+
                 Notice n = new Notice();
                 n.setTitle(titleField.getText().trim());
                 n.setContent(contentArea.getText().trim());
                 n.setTargetAudience(audienceCombo.getValue());
                 n.setPostedBy(user.getUserId());
                 n.setPinned(pinCheck.isSelected());
+                n.setFromDate(fromDate);
+                n.setToDate(toDate);
 
                 boolean added = noticeDAO.addNotice(n);
                 if (added) {
@@ -185,6 +212,10 @@ public class NoticeManagementController {
         TextArea contentArea = new TextArea(selected.getContent());
         contentArea.setPrefRowCount(6);
 
+        DatePicker fromDatePicker = new DatePicker(selected.getFromDate() == null ? LocalDate.now() : selected.getFromDate());
+        DatePicker toDatePicker = new DatePicker(selected.getToDate());
+        toDatePicker.setPromptText("Optional - leave empty for no expiry");
+
         CheckBox pinCheck = new CheckBox("Pin Notice to Top");
         pinCheck.setSelected(selected.isPinned());
 
@@ -194,7 +225,11 @@ public class NoticeManagementController {
         grid.add(audienceCombo, 1, 1);
         grid.add(new Label("Content:"), 0, 2);
         grid.add(contentArea, 1, 2);
-        grid.add(pinCheck, 1, 3);
+        grid.add(new Label("From Date:"), 0, 3);
+        grid.add(fromDatePicker, 1, 3);
+        grid.add(new Label("To Date (Optional):"), 0, 4);
+        grid.add(toDatePicker, 1, 4);
+        grid.add(pinCheck, 1, 5);
 
         dialog.getDialogPane().setContent(grid);
 
@@ -203,7 +238,19 @@ public class NoticeManagementController {
                 selected.setTitle(titleField.getText().trim());
                 selected.setContent(contentArea.getText().trim());
                 selected.setTargetAudience(audienceCombo.getValue());
+                LocalDate fromDate = fromDatePicker.getValue();
+                LocalDate toDate = toDatePicker.getValue();
+                if (fromDate == null) {
+                    AlertUtil.showWarning("Validation Error", "Please select a From Date.");
+                    return null;
+                }
+                if (toDate != null && toDate.isBefore(fromDate)) {
+                    AlertUtil.showWarning("Validation Error", "To Date cannot be before From Date.");
+                    return null;
+                }
                 selected.setPinned(pinCheck.isSelected());
+                selected.setFromDate(fromDate);
+                selected.setToDate(toDate);
 
                 boolean updated = noticeDAO.updateNotice(selected);
                 if (updated) {
