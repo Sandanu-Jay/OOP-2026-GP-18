@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="16" styleClass="content-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.faculty.management.controller.MarksManagementController">
+
+    <!-- Top Action Bar -->
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label text="Marks &amp; Academic Grading" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #0F172A;" />
+        
+        <HBox fx:id="gpaSummaryBox" alignment="CENTER_LEFT" spacing="8" styleClass="card" style="-fx-padding: 6 16;">
+            <Label text="Cumulative GPA (CGPA):" style="-fx-font-weight: bold; -fx-text-fill: #64748B;" />
+            <Label fx:id="lblGpaValue" text="0.00" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2563EB;" />
+        </HBox>
+
+        <Region HBox.hgrow="ALWAYS" />
+        
+        <Label fx:id="lblCourseSelector" text="Select Course:" styleClass="form-label" />
+        <ComboBox fx:id="cmbCourses" prefWidth="250" />
+        
+        <Button fx:id="btnEnterMarks" text="✏ Enter / Edit Marks" onAction="#handleEnterMarks" styleClass="btn-primary" />
+        <Button fx:id="btnRefresh" text="↻" onAction="#handleRefresh" styleClass="btn-secondary" />
+    </HBox>
+
+    <!-- Marks Table -->
+    <TableView fx:id="tblMarks" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colRegNo" text="Reg No" prefWidth="110" />
+            <TableColumn fx:id="colStudentName" text="Student Name" prefWidth="180" />
+            <TableColumn fx:id="colCourseCode" text="Course" prefWidth="90" />
+            <TableColumn fx:id="colQuiz" text="Quiz (100)" prefWidth="80" />
+            <TableColumn fx:id="colMid" text="Mid (100)" prefWidth="80" />
+            <TableColumn fx:id="colAssignment" text="Assign (100)" prefWidth="85" />
+            <TableColumn fx:id="colCa" text="CA Mark" prefWidth="80" />
+            <TableColumn fx:id="colCaStatus" text="CA Eligibility (≥40%)" prefWidth="160" />
+            <TableColumn fx:id="colFinalExam" text="Final Exam" prefWidth="90" />
+            <TableColumn fx:id="colTotal" text="Total Mark" prefWidth="85" />
+            <TableColumn fx:id="colGrade" text="Grade" prefWidth="70" />
+            <TableColumn fx:id="colGpv" text="GPV" prefWidth="70" />
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+        </columnResizePolicy>
+    </TableView>
+
+</VBox>

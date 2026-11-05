@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.faculty.management.controller.LecturerDashboardController"
+            prefWidth="1180" prefHeight="720">
+
+    <!-- Modern Dark Sidebar (Left) -->
+    <left>
+        <VBox styleClass="sidebar">
+            <VBox spacing="4" style="-fx-padding: 0 0 16 8;">
+                <Label text="🎓 FacultyLecturer" styleClass="sidebar-brand-title" />
+                <Label text="Academic &amp; Evaluation Portal" styleClass="sidebar-brand-subtitle" />
+            </VBox>
+
+            <Separator style="-fx-opacity: 0.2; -fx-padding: 0 0 10 0;" />
+
+            <!-- Nav Links -->
+            <Label text="ACADEMICS" styleClass="sidebar-category-header" />
+            <Button fx:id="btnNavDashboard" text="📊 Dashboard Overview" onAction="#showDashboardOverview" styleClass="sidebar-button" maxWidth="Infinity" />
+            <Button fx:id="btnNavCourses" text="📚 My Courses &amp; Materials" onAction="#showCourses" styleClass="sidebar-button" maxWidth="Infinity" />
+            <Button fx:id="btnNavMarks" text="✏ Marks &amp; Grading" onAction="#showMarks" styleClass="sidebar-button" maxWidth="Infinity" />
+            <Button fx:id="btnNavStudents" text="🎓 Undergraduates" onAction="#showStudents" styleClass="sidebar-button" maxWidth="Infinity" />
+            <Button fx:id="btnNavEligibility" text="📋 Exam Eligibility" onAction="#showEligibility" styleClass="sidebar-button" maxWidth="Infinity" />
+
+            <Label text="MONITORING" styleClass="sidebar-category-header" />
+            <Button fx:id="btnNavAttendance" text="🕒 Student Attendance" onAction="#showAttendance" styleClass="sidebar-button" maxWidth="Infinity" />
+            <Button fx:id="btnNavMedical" text="🏥 Medical Records" onAction="#showMedical" styleClass="sidebar-button" maxWidth="Infinity" />
+            <Button fx:id="btnNavNotices" text="📢 Announcements" onAction="#showNotices" styleClass="sidebar-button" maxWidth="Infinity" />
+            <Button fx:id="btnNavProfile" text="👤 Staff Profile" onAction="#showProfile" styleClass="sidebar-button" maxWidth="Infinity" />
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <!-- Logout -->
+            <Button text="🚪 Logout" onAction="#handleLogout" styleClass="sidebar-logout-btn" maxWidth="Infinity" />
+        </VBox>
+    </left>
+
+    <!-- Center Content Area -->
+    <center>
+        <VBox>
+            <!-- Top Header Bar -->
+            <HBox styleClass="top-header">
+                <Label fx:id="lblPageTitle" text="Lecturer Dashboard Overview" styleClass="header-title" />
+                <Region HBox.hgrow="ALWAYS" />
+                
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <VBox alignment="CENTER_RIGHT">
+                        <Label fx:id="lblLecturerName" text="Dr. Academic Staff" styleClass="user-header-name" />
+                        <Label text="Senior Lecturer" style="-fx-font-size: 11px; -fx-text-fill: #64748B;" />
+                    </VBox>
+                    <Label text="LECTURER" styleClass="user-badge-role" />
+                </HBox>
+            </HBox>
+
+            <!-- Dynamic Body Area -->
+            <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS">
+                <!-- Overview View (Default) -->
+                <VBox fx:id="overviewView" spacing="24" styleClass="content-pane">
+                    
+                    <!-- Welcome Card -->
+                    <HBox alignment="CENTER_LEFT" spacing="16" styleClass="card" style="-fx-background-color: linear-gradient(to right, #2563EB, #1D4ED8); -fx-padding: 24px;">
+                        <VBox spacing="6">
+                            <Label text="Welcome, Academic Colleague" style="-fx-text-fill: #FFFFFF; -fx-font-size: 20px; -fx-font-weight: bold;" />
+                            <Label text="Manage course learning resources, submit Continuous Assessment (CA) and exam marks, and inspect eligibility." style="-fx-text-fill: #DBEAFE; -fx-font-size: 13px;" />
+                        </VBox>
+                    </HBox>
+
+                    <!-- Metric Cards Grid -->
+                    <GridPane hgap="16" vgap="16">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50" />
+                            <ColumnConstraints percentWidth="50" />
+                        </columnConstraints>
+
+                        <!-- My Courses -->
+                        <VBox styleClass="card" spacing="8" GridPane.columnIndex="0">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="My Assigned Courses" styleClass="metric-title" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label text="📚" style="-fx-font-size: 20px;" />
+                            </HBox>
+                            <Label fx:id="lblMyCoursesCount" text="1" styleClass="metric-value" />
+                            <Label text="Modules coordinated by you" style="-fx-font-size: 11px; -fx-text-fill: #64748B;" />
+                        </VBox>
+
+                        <!-- Total Students Enrolled -->
+                        <VBox styleClass="card" spacing="8" GridPane.columnIndex="1">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label text="Enrolled Undergraduates" styleClass="metric-title" />
+                                <Region HBox.hgrow="ALWAYS" />
+                                <Label text="🎓" style="-fx-font-size: 20px;" />
+                            </HBox>
+                            <Label fx:id="lblTotalStudentsCount" text="20" styleClass="metric-value" />
+                            <Label text="Undergraduates across enrolled batches" style="-fx-font-size: 11px; -fx-text-fill: #64748B;" />
+                        </VBox>
+                    </GridPane>
+
+                    <!-- Quick Shortcuts Card -->
+                    <VBox spacing="12" styleClass="card">
+                        <Label text="Frequent Lecturer Actions" style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #0F172A;" />
+                        <HBox spacing="12">
+                            <Button text="✏ Enter Student Marks" onAction="#showMarks" styleClass="btn-primary" />
+                            <Button text="📋 Inspect Exam Eligibility" onAction="#showEligibility" styleClass="btn-primary" />
+                            <Button text="📤 Upload Course Materials" onAction="#showCourses" styleClass="btn-secondary" />
+                            <Button text="🕒 View Attendance Records" onAction="#showAttendance" styleClass="btn-secondary" />
+                        </HBox>
+                    </VBox>
+
+                </VBox>
+            </StackPane>
+        </VBox>
+    </center>
+
+</BorderPane>
