@@ -93,7 +93,7 @@ CREATE TABLE courses (
     FOREIGN KEY (lecturer_id) REFERENCES lecturers(lecturer_id) ON DELETE SET NULL,
     FOREIGN KEY (department_id) REFERENCES departments(department_id) ON DELETE SET NULL
 ) ENGINE=InnoDB;
-
+ALTER TABLE courses ADD COLUMN level INT NOT NULL DEFAULT 1 AFTER department;
 -- ----------------------------------------------------------------------------
 -- 6. COURSE MATERIALS TABLE
 -- ----------------------------------------------------------------------------
