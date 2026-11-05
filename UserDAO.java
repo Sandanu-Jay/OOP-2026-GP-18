@@ -185,7 +185,7 @@ public class UserDAO implements IUserDAO {
             return false;
         }
     }
-
+//delete
     public boolean deleteUser(int userId) {
         String sql = "DELETE FROM users WHERE user_id = ?";
 
