@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="16" styleClass="content-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.faculty.management.controller.StudentManagementController">
+
+    <!-- Top Action Bar -->
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label text="Undergraduate Students" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #0F172A;" />
+        <Region HBox.hgrow="ALWAYS" />
+        
+        <TextField fx:id="txtSearch" promptText="🔍 Search by Reg No, Name, Dept..." prefWidth="260" />
+        <Button fx:id="btnAdd" text="+ Add Student" onAction="#handleAddStudent" styleClass="btn-primary" />
+        <Button fx:id="btnEdit" text="Edit" onAction="#handleEditStudent" styleClass="btn-secondary" />
+        <Button fx:id="btnDelete" text="Delete" onAction="#handleDeleteStudent" styleClass="btn-danger" />
+        <Button fx:id="btnRefresh" text="↻" onAction="#loadStudents" styleClass="btn-secondary" />
+    </HBox>
+
+    <!-- Students Table -->
+    <TableView fx:id="tblStudents" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colRegNo" text="Reg No" prefWidth="120" />
+            <TableColumn fx:id="colFullName" text="Full Name" prefWidth="180" />
+            <TableColumn fx:id="colEmail" text="Email Address" prefWidth="180" />
+            <TableColumn fx:id="colPhone" text="Contact No" prefWidth="120" />
+            <TableColumn fx:id="colDepartment" text="Department" prefWidth="200" />
+            <TableColumn fx:id="colBatch" text="Batch" prefWidth="100" />
+            <TableColumn fx:id="colStatus" text="Status" prefWidth="110" />
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+        </columnResizePolicy>
+    </TableView>
+
+</VBox>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.faculty.management.controller.ProfileController">
+
+    <VBox spacing="24" styleClass="content-pane">
+        
+        <!-- Header Banner -->
+        <HBox alignment="CENTER_LEFT" spacing="20" styleClass="card" style="-fx-padding: 24px;">
+            <VBox alignment="CENTER" spacing="8">
+                <StackPane style="-fx-background-color: #EFF6FF; -fx-background-radius: 50%; -fx-min-width: 80px; -fx-min-height: 80px; -fx-max-width: 80px; -fx-max-height: 80px; -fx-border-color: #BFDBFE; -fx-border-radius: 50%; -fx-border-width: 2px;">
+                    <ImageView fx:id="imgProfilePhoto" fitWidth="76" fitHeight="76" preserveRatio="true" />
+                    <Label fx:id="lblAvatarPlaceholder" text="👤" style="-fx-font-size: 36px;" />
+                </StackPane>
+                <Button fx:id="btnChangePhoto" text="📷 Change Photo" onAction="#handleChangePhoto" styleClass="btn-secondary" style="-fx-font-size: 11px; -fx-padding: 4 8;" />
+            </VBox>
+            <VBox spacing="6">
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <Label fx:id="lblFullNameHeader" text="User Full Name" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #0F172A;" />
+                    <Label fx:id="lblRoleBadge" text="ROLE" styleClass="user-badge-role" />
+                </HBox>
+                <Label fx:id="lblUsernameDisplay" text="\@username" style="-fx-font-size: 13px; -fx-text-fill: #64748B;" />
+            </VBox>
+        </HBox>
+
+        <!-- Profile Details Form Card -->
+        <VBox spacing="20" styleClass="card">
+            <Label text="Personal &amp; Contact Information" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0F172A;" />
+            <Separator />
+
+            <GridPane hgap="20" vgap="16">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50" />
+                    <ColumnConstraints percentWidth="50" />
+                </columnConstraints>
+
+                <!-- Full Name -->
+                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Label text="Full Name" styleClass="form-label" />
+                    <TextField fx:id="txtFullName" promptText="Full Name" />
+                </VBox>
+
+                <!-- Username -->
+                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Label text="Username (Permanent)" styleClass="form-label" />
+                    <TextField fx:id="txtUsername" promptText="Username" />
+                </VBox>
+
+                <!-- Email -->
+                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <Label text="Email Address (Editable)" styleClass="form-label" />
+                    <TextField fx:id="txtEmail" promptText="name@faculty.ac.lk" />
+                </VBox>
+
+                <!-- Phone -->
+                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <Label text="Phone Number (Editable)" styleClass="form-label" />
+                    <TextField fx:id="txtPhone" promptText="+94 77 123 4567" />
+                </VBox>
+
+                <!-- Address -->
+                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">
+                    <Label text="Residential Address (Editable)" styleClass="form-label" />
+                    <TextField fx:id="txtAddress" promptText="e.g. No 15, Lake Road, Colombo" />
+                </VBox>
+            </GridPane>
+
+            <!-- Student Specific Academic Box -->
+            <VBox fx:id="studentDetailsBox" spacing="16" style="-fx-padding: 8 0 0 0;">
+                <Label text="Academic Details (Read-Only for Undergraduates)" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2563EB;" />
+                <GridPane hgap="20" vgap="16">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" />
+                        <ColumnConstraints percentWidth="50" />
+                    </columnConstraints>
+
+                    <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label text="Registration Number" styleClass="form-label" />
+                        <TextField fx:id="txtRegNo" />
+                    </VBox>
+
+                    <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label text="Department" styleClass="form-label" />
+                        <TextField fx:id="txtDepartment" />
+                    </VBox>
+
+                    <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label text="Academic Batch" styleClass="form-label" />
+                        <TextField fx:id="txtBatch" />
+                    </VBox>
+
+                    <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label text="Academic Status" styleClass="form-label" />
+                        <TextField fx:id="txtStudentStatus" />
+                    </VBox>
+                    <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">
+                        <Label text="Current Level / Semester" styleClass="form-label" />
+                        <TextField fx:id="txtLevelSemester" editable="false" promptText="Level 1 / Semester 2" />
+                    </VBox>
+                </GridPane>
+            </VBox>
+
+            <!-- Staff Specific Details Box -->
+            <VBox fx:id="staffDetailsBox" spacing="16" style="-fx-padding: 8 0 0 0;">
+                <Label text="Faculty Staff Information" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2563EB;" />
+                <GridPane hgap="20" vgap="16">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" />
+                        <ColumnConstraints percentWidth="50" />
+                    </columnConstraints>
+
+                    <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label text="Assigned Department" styleClass="form-label" />
+                        <TextField fx:id="txtStaffDepartment" />
+                    </VBox>
+
+                    <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label text="Designation / Post" styleClass="form-label" />
+                        <TextField fx:id="txtStaffDesignation" />
+                    </VBox>
+                </GridPane>
+            </VBox>
+
+            <HBox alignment="CENTER_RIGHT" spacing="12" style="-fx-padding: 12 0 0 0;">
+                <Button fx:id="btnSave" text="Save Profile Changes" onAction="#handleSaveProfile" styleClass="btn-primary" />
+            </HBox>
+        </VBox>
+
+    </VBox>
+</ScrollPane>
