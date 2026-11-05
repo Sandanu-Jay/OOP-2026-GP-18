@@ -109,7 +109,9 @@ CREATE TABLE course_materials (
     uploaded_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
-
+ALTER TABLE course_materials
+    ADD COLUMN file_name VARCHAR(255) NULL AFTER file_path_or_url,
+    ADD COLUMN file_data LONGBLOB NULL AFTER file_name;
 -- ----------------------------------------------------------------------------
 -- 7. ENROLLMENTS TABLE
 -- ----------------------------------------------------------------------------
