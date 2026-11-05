@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="16" styleClass="content-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.faculty.management.controller.TimetableManagementController">
+
+    <!-- Top Action Bar -->
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label text="Faculty Academic Timetable" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #0F172A;" />
+        <Region HBox.hgrow="ALWAYS" />
+        
+        <HBox fx:id="adminControls" spacing="8">
+            <Button fx:id="btnAddSlot" text="+ Add Schedule" onAction="#handleAddSlot" styleClass="btn-primary" />
+            <Button fx:id="btnEditSlot" text="Edit" onAction="#handleEditSlot" styleClass="btn-secondary" />
+            <Button fx:id="btnDeleteSlot" text="Delete" onAction="#handleDeleteSlot" styleClass="btn-danger" />
+        </HBox>
+        <Button fx:id="btnRefresh" text="↻" onAction="#loadTimetables" styleClass="btn-secondary" />
+    </HBox>
+
+    <!-- Timetable View -->
+    <TableView fx:id="tblTimetables" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colDay" text="Day of Week" prefWidth="120" />
+            <TableColumn fx:id="colTime" text="Time Slot" prefWidth="140" />
+            <TableColumn fx:id="colCourseCode" text="Course Code" prefWidth="110" />
+            <TableColumn fx:id="colCourseName" text="Course Name" prefWidth="250" />
+            <TableColumn fx:id="colVenue" text="Venue / Room" prefWidth="150" />
+            <TableColumn fx:id="colLecturer" text="Lecturer" prefWidth="180" />
+            <TableColumn fx:id="colDepartment" text="Department" prefWidth="200" />
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+        </columnResizePolicy>
+    </TableView>
+
+</VBox>
